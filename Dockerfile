@@ -52,7 +52,7 @@ ENV JRE_HOME ${JAVA_HOME}/jre
 # Tomcat
 ENV TOMCAT_MAJOR 8
 ENV TOMCAT_VERSION 8.5.13
-ENV TOMCAT_TGZ_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+ENV TOMCAT_TGZ_URL http://mirrors.aliyun.com/apache/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -68,7 +68,7 @@ RUN \
 
 # Apache native libraries (apr)
 ENV APACHE_NATIVE_VERSION 1.2.12
-ENV APACHE_NATIVE_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
+ENV APACHE_NATIVE_URL http://mirrors.aliyun.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
 RUN \
     curl -fSL "$APACHE_NATIVE_URL" -o native.tar.gz && \
     curl -fSL "$APACHE_NATIVE_URL.asc" -o native.tar.gz.asc && \
