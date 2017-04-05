@@ -31,8 +31,10 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN \
   apt-get update && \
-  apt-get install -y \ 
+  apt-get install -y --no-install-recommends \ 
   curl \
+  ca-certificates \
+  wget \
   gcc \
   libapr1 \
   make \
@@ -113,9 +115,7 @@ COPY files/server.xml $CATALINA_HOME/conf/server.xml
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.10
-RUN set -x \
-    apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* && \
-    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" && \
+RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" && \
     wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" && \
     export GNUPGHOME="$(mktemp -d)" && \
     rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc && \
