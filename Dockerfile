@@ -75,9 +75,9 @@ ENV APACHE_NATIVE_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-connector
 RUN \
     curl -fSL "$APACHE_NATIVE_URL" -o native.tar.gz && \
     tar zxf native.tar.gz -C /tmp && \
+    export CATALINA_HOME=/opt/tomcat && \
     cd /tmp/tomcat-native*-src/native/ && \
     ./configure \
-        --libdir=$TOMCAT_NATIVE_LIBDIR \
         --prefix=$CATALINA_HOME \
         --with-apr="$(which apr-1-config)" \
         --with-java-home=$JAVA_HOME \
