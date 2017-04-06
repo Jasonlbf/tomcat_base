@@ -66,6 +66,7 @@ RUN \
     rm tomcat.tar.gz*
 
 RUN apt-get install -y libtcnative-1 && \
+  cp /usr/lib/x86_64-linux-gnu/libtcnative-1.so /opt/tomcat/lib/ && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
 
