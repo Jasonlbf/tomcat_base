@@ -75,10 +75,10 @@ RUN \
     tar zxf native.tar.gz -C /tmp && \
     cd /tmp/tomcat-native*-src/native/ && \
     ./configure \
+        --prefix=$CATALINA_HOME/lib \
         --with-apr=/usr/bin/apr-1-config \
         --with-java-home=$JAVA_HOME \
-        --with-ssl=no \
-        --prefix=$CATALINA_HOME/lib && \
+        --with-ssl=no && \
     make && \
     make install && \
     apt-get purge -y \
