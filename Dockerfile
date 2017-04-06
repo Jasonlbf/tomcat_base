@@ -54,7 +54,7 @@ ENV JRE_HOME ${JAVA_HOME}/jre
 # Tomcat
 ENV TOMCAT_MAJOR 8
 ENV TOMCAT_VERSION 8.5.13
-ENV TOMCAT_TGZ_URL http://mirrors.aliyun.com/apache/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+ENV TOMCAT_TGZ_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -63,17 +63,15 @@ WORKDIR $CATALINA_HOME
 
 RUN \
     curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz && \
-    curl -fSL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc && \
     tar -xzvf tomcat.tar.gz --strip-components=1 && \
     rm bin/*.bat && \
     rm tomcat.tar.gz*
 
 # Apache native libraries (apr)
 ENV APACHE_NATIVE_VERSION 1.2.12
-ENV APACHE_NATIVE_URL http://mirrors.aliyun.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
+ENV APACHE_NATIVE_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
 RUN \
     curl -fSL "$APACHE_NATIVE_URL" -o native.tar.gz && \
-    curl -fSL "$APACHE_NATIVE_URL.asc" -o native.tar.gz.asc && \
     tar zxf native.tar.gz -C /tmp && \
     cd /tmp/tomcat-native*-src/native/ && \
     ./configure \
@@ -116,7 +114,6 @@ COPY files/server.xml $CATALINA_HOME/conf/server.xml
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.10
 RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" && \
-    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" && \
     export GNUPGHOME="$(mktemp -d)" && \
     rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc && \
     chmod +x /usr/local/bin/gosu && \
