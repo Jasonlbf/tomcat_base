@@ -119,7 +119,6 @@ COPY files/server.xml $CATALINA_HOME/conf/server.xml
 ENV GOSU_VERSION 1.10
 RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" && \
     export GNUPGHOME="$(mktemp -d)" && \
-    rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc && \
     chmod +x /usr/local/bin/gosu && \
     gosu nobody true
 
