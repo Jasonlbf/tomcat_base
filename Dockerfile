@@ -43,9 +43,7 @@ RUN \
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
+  apt-get install -y oracle-java8-installer
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV JRE_HOME ${JAVA_HOME}/jre
@@ -67,24 +65,28 @@ RUN \
     rm bin/*.bat && \
     rm tomcat.tar.gz*
 
+RUN apt-get install -y libtcnative-1 && \
+  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/cache/oracle-jdk8-installer
+
 # Apache native libraries (apr)
-ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
-ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
-ENV APACHE_NATIVE_VERSION 1.2.12
-ENV APACHE_NATIVE_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
-RUN \
-    curl -fSL "$APACHE_NATIVE_URL" -o native.tar.gz && \
-    tar zxf native.tar.gz -C /tmp && \
-    cd /tmp/tomcat-native*-src/native/ && \
-    ./configure \
-        --prefix=/opt/tomcat \
-        --with-apr=/usr/bin/apr-1-config \
-        --with-java-home=/usr/lib/jvm/java-8-oracle \
-        --with-ssl=no && \
-    make && \
-    make install && \
-    apt-get purge -y \
-        libapr1-dev
+#ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
+#ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
+#ENV APACHE_NATIVE_VERSION 1.2.12
+#ENV APACHE_NATIVE_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
+#RUN \
+#    curl -fSL "$APACHE_NATIVE_URL" -o native.tar.gz && \
+#    tar zxf native.tar.gz -C /tmp && \
+#    cd /tmp/tomcat-native*-src/native/ && \
+#    ./configure \
+#        --prefix=/opt/tomcat \
+#        --with-apr=/usr/bin/apr-1-config \
+#        --with-java-home=/usr/lib/jvm/java-8-oracle \
+#        --with-ssl=no && \
+#    make && \
+#    make install && \
+#    apt-get purge -y \
+#        libapr1-dev
 
 
 RUN \

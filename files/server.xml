@@ -57,7 +57,9 @@
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
         maxThreads="150" minSpareThreads="4"/>
     -->
-
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="800" minSpareThreads="100"
+        prestartminSpareThreads="true" maxQueueSize="100" />
 
     <!-- A "Connector" represents an endpoint by which requests are received
          and responses are returned. Documentation at :
@@ -66,9 +68,14 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector port="8080" protocol="HTTP/1.1"
+    <Connector port="8080" protocol="org.apache.coyote.http11.Http11AprProtocol"
                connectionTimeout="20000"
-               redirectPort="8443" />
+               enableLookups="false"
+               executor="tomcatThreadPool"
+               acceptCount="100"
+               acceptorThreadCount="2"
+               redirectPort="8443"
+               URIEncoding="utf-8" />
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
