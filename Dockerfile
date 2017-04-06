@@ -68,6 +68,8 @@ RUN \
     rm tomcat.tar.gz*
 
 # Apache native libraries (apr)
+ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
+ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
 ENV APACHE_NATIVE_VERSION 1.2.12
 ENV APACHE_NATIVE_URL http://mirrors.aliyuncs.com/apache/tomcat/tomcat-connectors/native/$APACHE_NATIVE_VERSION/source/tomcat-native-$APACHE_NATIVE_VERSION-src.tar.gz
 RUN \
@@ -75,8 +77,9 @@ RUN \
     tar zxf native.tar.gz -C /tmp && \
     cd /tmp/tomcat-native*-src/native/ && \
     ./configure \
-        --prefix=$CATALINA_HOME/lib \
-        --with-apr=/usr/bin/apr-1-config \
+        --libdir=$TOMCAT_NATIVE_LIBDIR \
+        --prefix=$CATALINA_HOME \
+        --with-apr="$(which apr-1-config)" \
         --with-java-home=$JAVA_HOME \
         --with-ssl=no && \
     make && \
