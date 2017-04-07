@@ -47,7 +47,8 @@ RUN \
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV JRE_HOME ${JAVA_HOME}/jre
-
+ENV XMS_SIZE 1G
+ENV XMX_SIZE 1G
 
 # Tomcat
 ENV TOMCAT_MAJOR 8
@@ -128,5 +129,6 @@ RUN chown -R tomcat:tomcat "$CATALINA_HOME"
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 
+VOLUME $TOMCAT_HOME/webapps
 EXPOSE 8080 8443
 CMD ["catalina.sh", "run"]
