@@ -66,12 +66,16 @@ RUN \
     rm bin/*.bat && \
     rm tomcat.tar.gz*
 
-RUN apt-get install -y libtcnative-1 && \
-  cp /usr/lib/x86_64-linux-gnu/libtcnative-1.so /opt/tomcat/lib/ && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
-
 # Apache native libraries (apr)
+RUN wget http://ftp.cn.debian.org/debian/pool/main/t/tomcat-native/libtcnative-1_1.2.10-1_amd64.deb && \
+    dpkg -i libtcnative-1_1.2.10-1_amd64.deb && \
+    apt-get install -fy install && \
+    cp /usr/lib/x86_64-linux-gnu/libtcnative-1.so.0.2.10 $CATALINA_HOME/lib/libtcnative-1.so && \
+    rm -rf libtcnative-1_1.2.10-1_amd64.deb && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/cache/apt/* && \
+    rm -rf /var/cache/oracle-jdk8-installer
+
 #ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
 #ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
 #ENV APACHE_NATIVE_VERSION 1.2.12
