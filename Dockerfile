@@ -101,7 +101,6 @@ COPY files/.bash_logout $CATALINA_HOME/.bash_logout
 
 # Tomcat config
 COPY files/setenv.sh $CATALINA_HOME/bin/setenv.sh
-COPY files/javaopts.sh $CATALINA_HOME/bin/javaopts.sh
 COPY files/server.xml $CATALINA_HOME/conf/server.xml
 # COPY files/tomcat-users.xml $CATALINA_HOME/conf/tomcat-users.xml
 
