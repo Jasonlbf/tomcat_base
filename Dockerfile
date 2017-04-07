@@ -69,9 +69,9 @@ RUN \
 
 # Apache native libraries (apr)
 RUN wget http://mirror.lupaworld.com/ubuntu/pool/universe/t/tomcat-native/libtcnative-1_1.2.8-1_amd64.deb && \
-    dpkg -i libtcnative-1_1.2.10-1_amd64.deb && \
-    cp /usr/lib/x86_64-linux-gnu/libtcnative-1.so.0.2.10 $CATALINA_HOME/lib/libtcnative-1.so && \
-    rm -rf libtcnative-1_1.2.10-1_amd64.deb && \
+    dpkg -i libtcnative-1_1.2.8-1_amd64.deb && \
+    cp /usr/lib/x86_64-linux-gnu/libtcnative-1.so.0.2.8 $CATALINA_HOME/lib/libtcnative-1.so && \
+    rm -rf libtcnative-1_1.2.8-1_amd64.deb && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/* && \
     rm -rf /tmp/* /var/tmp/* && \
