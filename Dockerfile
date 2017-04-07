@@ -37,6 +37,7 @@ RUN \
   wget \
   gcc \
   libapr1 \
+  libssl1.0.2 \
   make \
   libreadline-dev \
   software-properties-common && \
@@ -69,11 +70,11 @@ RUN \
 # Apache native libraries (apr)
 RUN wget http://ftp.cn.debian.org/debian/pool/main/t/tomcat-native/libtcnative-1_1.2.10-1_amd64.deb && \
     dpkg -i libtcnative-1_1.2.10-1_amd64.deb && \
-    apt-get install -fy install && \
     cp /usr/lib/x86_64-linux-gnu/libtcnative-1.so.0.2.10 $CATALINA_HOME/lib/libtcnative-1.so && \
     rm -rf libtcnative-1_1.2.10-1_amd64.deb && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/apt/* && \
+    rm -rf /tmp/* /var/tmp/* && \
     rm -rf /var/cache/oracle-jdk8-installer
 
 #ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
