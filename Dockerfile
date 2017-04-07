@@ -31,13 +31,13 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN \
   apt-get update && \
-  apt-get install -y --no-install-recommends \ 
+  apt-get install -y \ 
+  libssl1.0.2 \
   curl \
   ca-certificates \
   wget \
   gcc \
   libapr1 \
-  libssl1.0.2 \
   make \
   libreadline-dev \
   software-properties-common && \
